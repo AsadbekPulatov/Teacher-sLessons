@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // create roles and assign existing permissions
+        $role1 = Role::create(['name' => 'teacher']);
+        $role1 = Role::create(['name' => 'student']);
+//        $role1->givePermissionTo('edit articles');
+//        $role1->givePermissionTo('delete articles');
     }
 }
