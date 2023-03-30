@@ -407,8 +407,9 @@
     {{--    @endif--}}
     <div>
         <a href="{{ route('login') }}" class="btn btn-info">{{ __("messages.login") }}</a>
-        <a href="{{ route('register', ['role' => 'teacher']) }}" class="btn btn-info">Men O'qituvchiman</a>
-        <a href="{{ route('register', ['role' => 'student']) }}" class="btn btn-info">Men O'quvchiman</a>
+        <a href="{{ route('register') }}" class="btn btn-info">{{ __("messages.register") }}</a>
+{{--        <a href="{{ route('register', ['role' => 'teacher']) }}" class="btn btn-info">Men O'qituvchiman</a>--}}
+{{--        <a href="{{ route('register', ['role' => 'student']) }}" class="btn btn-info">Men O'quvchiman</a>--}}
     </div>
 </div>
 </body>

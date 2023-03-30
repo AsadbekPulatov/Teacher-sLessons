@@ -11,11 +11,21 @@ return [
     'close' => "Bekor qilish",
 
     //   headers and menus
+    "surname" => "Familiya",
+    "job" => "Kasb",
+    "phone" => "Telefon",
+    "country" => "Viloyat",
+    "city" => "Tuman",
+
+    "already_registered" => "Ro'yxatdan o'tganmisiz?",
+    "role" => "Rol",
+    "saved" => "Saqlandi",
+
+    //    auth
     "login" => "Kirish",
     "logout" => "Chiqish",
     "register" => "Ro'yxatdan o'tish",
 
-    //    auth
     "email" => "Elektron pochta",
     "password" => "Parol",
     "remember_me" => "Meni eslab qol",
