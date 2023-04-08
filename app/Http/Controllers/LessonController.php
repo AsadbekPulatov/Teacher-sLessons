@@ -6,6 +6,7 @@ use App\Http\Service\UploadFile;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LessonController extends Controller
 {
@@ -47,17 +48,29 @@ class LessonController extends Controller
         $uploadFile = new UploadFile();
         request()->validate([
             'theme' => 'required',
-            'file' => 'required|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx',
-            'video' => 'required|mimes:mp4,avi,mov',
-            'task' => 'required|mimes:pdf,doc,docx',
+            'file' => 'mimes:pdf,doc,docx,ppt,pptx,xls,xlsx',
+            'video' => 'mimes:mp4,avi,mov',
+            'task' => 'mimes:pdf,doc,docx',
         ]);
         $file = $request->file('file');
         $video = $request->file('video');
         $task = $request->file('task');
 
-        $file_name = $uploadFile->uploadFile($file, 'uploads/files');
-        $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
-        $task_name = $uploadFile->uploadFile($task, 'uploads/tasks');
+        if (!$file) {
+            $file_name = "";
+        } else {
+            $file_name = $uploadFile->uploadFile($file, 'uploads/files');
+        }
+        if (!$video) {
+            $video_name = "";
+        } else {
+            $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
+        }
+        if (!$task) {
+            $task_name = "";
+        } else {
+            $task_name = $uploadFile->uploadFile($task, 'uploads/tasks');
+        }
 
         $lesson = new Lesson();
         $lesson->theme = $request->theme;
@@ -66,8 +79,8 @@ class LessonController extends Controller
         $lesson->video = $video_name;
         $lesson->task = $task_name;
         $lesson->save();
-        return redirect()->route('lessons.index', ['id' => $request->course_id])
-            ->with('success', 'Lesson created successfully.');
+        Alert::success('Success', __('messages.lesson_created'));
+        return redirect()->route('lessons.index', ['id' => $request->course_id]);
     }
 
     /**
@@ -113,26 +126,32 @@ class LessonController extends Controller
         $task = $request->file('task');
         if ($file) {
             $file_name = $uploadFile->uploadFile($file, 'uploads/files');
-            $file_path = public_path('uploads/files/' . $lesson->file);
-            $uploadFile->deleteFile($file_path);
+            if ($lesson->file){
+                $file_path = public_path('uploads/files/' . $lesson->file);
+                $uploadFile->deleteFile($file_path);
+            }
             $lesson->file = $file_name;
         }
         if ($video) {
             $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
-            $video_path = public_path('uploads/videos/' . $lesson->video);
-            $uploadFile->deleteFile($video_path);
+            if ($lesson->video){
+                $video_path = public_path('uploads/videos/' . $lesson->video);
+                $uploadFile->deleteFile($video_path);
+            }
             $lesson->video = $video_name;
         }
         if ($task) {
             $task_name = $uploadFile->uploadFile($task, 'uploads/tasks');
-            $task_path = public_path('uploads/tasks/' . $lesson->task);
-            $uploadFile->deleteFile($task_path);
+            if ($lesson->task){
+                $task_path = public_path('uploads/tasks/' . $lesson->task);
+                $uploadFile->deleteFile($task_path);
+            }
             $lesson->task = $task_name;
         }
         $lesson->theme = $request->theme;
         $lesson->save();
-        return redirect()->route('lessons.index', ['id' => $lesson->course_id])
-            ->with('success', 'Lesson updated successfully.');
+        Alert::success('Success', __('messages.lesson_updated'));
+        return redirect()->route('lessons.index', ['id' => $lesson->course_id]);
     }
 
     /**
@@ -151,7 +170,7 @@ class LessonController extends Controller
         $deleteFile->deleteFile($video_path);
         $deleteFile->deleteFile($task_path);
         $lesson->delete();
-        return redirect()->route('lessons.index', ['id' => $lesson->course_id])
-            ->with('success', 'Lesson deleted successfully.');
+        Alert::success('Success', __('messages.lesson_deleted'));
+        return redirect()->route('lessons.index', ['id' => $lesson->course_id]);
     }
 }

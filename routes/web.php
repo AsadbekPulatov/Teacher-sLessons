@@ -30,6 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('courses', CourseController::class);
     Route::resource('lessons', LessonController::class);
+    Route::get('students', [\App\Http\Controllers\StudentController::class, 'students'])->name('students');
+    Route::get('/course',[\App\Http\Controllers\StudentController::class, 'course'])->name('student.course');
+    Route::get('/course-detail/{id}',[\App\Http\Controllers\StudentController::class, 'courseDetail'])->name('student.course-detail');
+    Route::get('/course-start/{id}/{teacher}',[\App\Http\Controllers\StudentController::class, 'courseStart'])->name('student.course-start');
 });
 
 require __DIR__.'/auth.php';

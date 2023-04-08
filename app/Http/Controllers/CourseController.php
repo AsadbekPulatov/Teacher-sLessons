@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseController extends Controller
 {
@@ -29,7 +31,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('teachers.courses.create');
+        $categories = Category::all();
+        return view('teachers.courses.create', compact('categories'));
     }
 
     /**
@@ -43,9 +46,12 @@ class CourseController extends Controller
         $course = new Course();
         $course->title = $request->title;
         $course->user_id = auth()->user()->id;
+        $course->category_id = $request->category;
+        $course->description = $request->description;
+        $course->price = $request->price;
         $course->save();
-
-        return redirect()->route('courses.index')->with('success', "Course created successfully");
+        Alert::success('Success', __("messages.course_created"));
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -67,7 +73,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('teachers.courses.edit', compact('course'));
+        $categories = Category::all();
+        return view('teachers.courses.edit', compact('course','categories'));
     }
 
     /**
@@ -80,9 +87,13 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $course->title = $request->title;
-        $course->save();
+        $course->category_id = $request->category;
+        $course->description = $request->description;
+        $course->price = $request->price;
 
-        return redirect()->route('courses.index')->with('success', "Course updated successfully");
+        $course->save();
+        Alert::success('Success', __("messages.course_updated"));
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -94,6 +105,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
+        Alert::success('Success', __("messages.course_deleted"));
         return redirect()->route('courses.index')->with('success', "Course deleted successfully");
     }
 }

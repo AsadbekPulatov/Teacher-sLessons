@@ -26,9 +26,17 @@ return [
     "edit_lesson" => "Darsni tahrirlash",
     "lessons" => "Darslar",
     "theme" => "Mavzu",
+    "description" => "Izoh",
     "file" => "Fayl",
     "video" => "Video",
     "task" => "Vazifa",
+    "category" => "Tur",
+    "price" => "Narx",
+    "all" => "Hammasi",
+    "teacher" => "O'qituvchi",
+    "students" => "O'quvchilar",
+    "uzs" => "so'm",
+    "start" => "Boshlash",
 
     "already_registered" => "Ro'yxatdan o'tganmisiz?",
     "role" => "Rol",
@@ -68,5 +76,13 @@ return [
 
 
     //Flash messages
+    'course_created' => "Kurs muvaffaqiyatli yaratildi",
+    "course_updated" => "Kurs muvaffaqiyatli yangilandi",
+    "course_deleted" => "Kurs muvaffaqiyatli o'chirildi",
+    "lesson_created" => "Dars muvaffaqiyatli yaratildi",
+    "lesson_updated" => "Dars muvaffaqiyatli yangilandi",
+    "lesson_deleted" => "Dars muvaffaqiyatli o'chirildi",
+    "cource_registered" => "Kursga muvaffaqiyatli ro'yxatdan o'tdingiz",
+    "cource_registered_error" => "Siz allaqachon ushbu kursga ro'yxatdan o'tgansiz",
     'logged_in' => "Тизимга кирилди",
 ];

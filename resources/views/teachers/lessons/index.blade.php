@@ -10,9 +10,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <a href="{{ route('lessons.create', ['id' => $id]) }}"
-                       class="btn btn-success font-bold py-2 px-4 rounded">{{ __("messages.add_lesson") }}</a>
-                    <h3 class="font-bold mb-3 mt-3">{{ __("messages.lessons") }}</h3>
+                    <div>
+                        <a href="{{ route('lessons.create', ['id' => $id]) }}"
+                           class="btn btn-success float-end">{{ __("messages.add_lesson") }}</a>
+                        <h3 class="font-bold mb-3 mt-3">{{ __("messages.lessons") }}</h3>
+                    </div>
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th class="col-1">#</th>
@@ -42,7 +44,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-around">
                                         <a href="{{ route('lessons.show', $lesson->id) }}" class="btn btn-info">
                                             <i class="bi bi-eye"></i>
                                         </a>
