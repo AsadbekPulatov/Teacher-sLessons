@@ -16,7 +16,7 @@
                         </div>
                         <div class="mt-4">
                             <label for="file" class="block text-gray-700 text-sm font-bold mb-2">{{ __("messages.file") }}:</label>
-                            <input type="file" name="file" id="file" accept=".pdf,.docx,.doc" class="form-control">
+                            <input type="file" name="file" id="file" accept=".pdf" class="form-control">
                             @error('file')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
@@ -32,7 +32,7 @@
                         </div>
                         <div class="mt-4">
                             <label for="task" class="block text-gray-700 text-sm font-bold mb-2">{{ __("messages.task") }}:</label>
-                            <input type="file" name="task" id="task" accept=".pdf,.docx,.doc" class="form-control">
+                            <input type="file" name="task" id="task" accept=".pdf" class="form-control">
                             @error('task')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror

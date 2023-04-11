@@ -22,6 +22,7 @@ return [
     "add_course" => "Kurs qo'shish",
     "edit_course" => "Kursni tahrirlash",
     "courses" => "Kurslar",
+    "my_courses" => "Mening kurslarim",
     "add_lesson" => "Dars qo'shish",
     "edit_lesson" => "Darsni tahrirlash",
     "lessons" => "Darslar",
@@ -37,6 +38,12 @@ return [
     "students" => "O'quvchilar",
     "uzs" => "so'm",
     "start" => "Boshlash",
+    "course_type" => "Kurs turi",
+    "read_more" => "Batafsil",
+    "search" => "Qidirish",
+    "lesson_file" => "Dars fayli",
+    "lesson_video" => "Dars video",
+    "lesson_task" => "Dars vazifasi",
 
     "already_registered" => "Ro'yxatdan o'tganmisiz?",
     "role" => "Rol",
@@ -69,12 +76,6 @@ return [
     "delete_account_confirmation" => "Hisobingizni oʻchirib tashlamoqchimisiz?",
     "delete_account_confirmation_text" => "Hisobingiz o'chirilgandan so'ng, uning barcha resurslari va ma'lumotlari butunlay o'chiriladi. Hisobingizni butunlay oʻchirib tashlamoqchi ekanligingizni tasdiqlash uchun parolingizni kiriting.",
 
-
-    //    labels
-    'delete_confirmation' => "Ҳақиқатан ҳам бу ёзувни оʻчириб ташламоқчимисиз?",
-    'delete_confirmation_text' => "Агар сиз буни ўчириб ташласангиз, бу ёзувни қайта тиклаш имкони ёъқ!",
-
-
     //Flash messages
     'course_created' => "Kurs muvaffaqiyatli yaratildi",
     "course_updated" => "Kurs muvaffaqiyatli yangilandi",
@@ -84,5 +85,8 @@ return [
     "lesson_deleted" => "Dars muvaffaqiyatli o'chirildi",
     "cource_registered" => "Kursga muvaffaqiyatli ro'yxatdan o'tdingiz",
     "cource_registered_error" => "Siz allaqachon ushbu kursga ro'yxatdan o'tgansiz",
+    "student_status" => "O'quvchi kursga qo'shildi",
+    "student_status_error" => "O'quvchi allaqachon ushbu kursga qo'shilgan",
+    "student_delete" => "O'quvchi kursdan o'chirildi",
     'logged_in' => "Тизимга кирилди",
 ];

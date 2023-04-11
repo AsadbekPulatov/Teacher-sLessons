@@ -21,7 +21,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (auth()->user()->hasRole('student')) {
+        return redirect()->route('student.course');
+    }
+    if (auth()->user()->hasRole('teacher')) {
+        return redirect()->route('courses.index');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -31,7 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
     Route::resource('lessons', LessonController::class);
     Route::get('students', [\App\Http\Controllers\StudentController::class, 'students'])->name('students');
+    Route::get('student-status/{id}', [\App\Http\Controllers\StudentController::class, 'studentStatus'])->name('student-status');
+    Route::get('student-delete/{id}', [\App\Http\Controllers\StudentController::class, 'studentDelete'])->name('student-delete');
     Route::get('/course',[\App\Http\Controllers\StudentController::class, 'course'])->name('student.course');
+    Route::get('my-courses', [\App\Http\Controllers\StudentController::class, 'myCourses'])->name('my-courses');
+    Route::get('/course-lessons/{id}',[\App\Http\Controllers\StudentController::class, 'courseLessons'])->name('student.course-lessons');
     Route::get('/course-detail/{id}',[\App\Http\Controllers\StudentController::class, 'courseDetail'])->name('student.course-detail');
     Route::get('/course-start/{id}/{teacher}',[\App\Http\Controllers\StudentController::class, 'courseStart'])->name('student.course-start');
 });

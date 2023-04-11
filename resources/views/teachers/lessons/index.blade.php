@@ -11,8 +11,24 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
-                        <a href="{{ route('lessons.create', ['id' => $id]) }}"
-                           class="btn btn-success float-end">{{ __("messages.add_lesson") }}</a>
+                        <div class="d-flex justify-content-around float-end" style="width: 25%;">
+                            <a href="{{ route('students', ['id' => $id]) }}" class="btn btn-info">
+                                <i class="bi bi-people"></i>
+                            </a>
+                            <a href="{{ route('courses.edit', $id) }}" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form action="{{ route('courses.destroy', $id) }}"
+                                  method="post" id="course-form">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            <a href="{{ route('lessons.create', ['id' => $id]) }}"
+                               class="btn btn-success">{{ __("messages.add_lesson") }}</a>
+                        </div>
                         <h3 class="font-bold mb-3 mt-3">{{ __("messages.lessons") }}</h3>
                     </div>
                     <table class="table table-bordered table-hover">

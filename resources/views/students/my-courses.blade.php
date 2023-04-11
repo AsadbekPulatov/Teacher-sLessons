@@ -5,10 +5,10 @@
                 <div class="p-6 text-gray-900">
                     <div class="row">
                         <div class="col-2" style="background-color: #f3f1f1">
-                            <a href="{{ route('student.course')}}"
+                            <a href="{{ route('my-courses')}}"
                                class="m-3 row text-dark fw-bold">{{ __("messages.all") }}</a>
                             @foreach($categories as $category)
-                                <a href="{{ route('student.course', ['category' => $category->id]) }}"
+                                <a href="{{ route('my-courses', ['category' => $category->id]) }}"
                                    class="m-3 row text-dark fw-bold">{{ $category->name }}</a>
                             @endforeach
                         </div>
@@ -19,13 +19,13 @@
                             </form>
                             <div class="row row-cols-3">
                                 @foreach($courses as $course)
-                                    <a href="{{ route('student.course-detail', $course->id) }}"
+                                    <a href="{{ route('student.course-lessons', $course->id) }}"
                                        class="rounded p-3 text-white fw-bold m-3"
                                        style="background-color: #6292d9; width: 45%">
-                                        <p>{{ $course->title }}</p>
-                                        <p>{{ number_format($course->price, 0, ' ', ' ') }} {{ __("messages.uzs") }}</p>
+                                        <p>{{ $course->course->title }}</p>
+                                        <p>{{ number_format($course->course->price, 0, ' ', ' ') }} {{ __("messages.uzs") }}</p>
                                         <p class="float-end">
-                                            <i class="bi bi-eye"></i> {{ $course->views }}
+                                            <i class="bi bi-eye"></i> {{ $course->course->views }}
                                             <i class="bi bi-heart ml-1"></i> 5
                                         </p>
                                     </a>

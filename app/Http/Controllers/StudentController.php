@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -13,17 +14,39 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:student')->only('course', 'courseDetail', 'courseStart', 'studentStatus');
-        $this->middleware('role:teacher')->only('studentStatus', 'students');
+        $this->middleware('role:student')->only('course', 'courseDetail', 'courseStart', 'courseLessons', 'myCourses');
+        $this->middleware('role:teacher')->only('studentStatus', 'students', 'studentStatus', 'studentDelete');
+    }
+
+    public function myCourses(Request $request)
+    {
+        $category = $request->get('category');
+        $search = $request->get('search');
+        if ($category) {
+            $course = Course::where('category_id', $category)->pluck('id');
+            $courses = Booking::with('course', 'teacher')->where('student_id', auth()->user()->id)->whereIn('course_id', $course)->paginate(6)->withQueryString();
+        } else {
+            $courses = Booking::with('course', 'teacher')->where('student_id', auth()->user()->id)->paginate(6)->withQueryString();
+        }
+        if ($search) {
+            $course = Course::where('title', 'like', '%' . $search . '%')->pluck('id');
+            $courses = Booking::with('course', 'teacher')->where('student_id', auth()->user()->id)->whereIn('course_id', $course)->paginate(6)->withQueryString();
+        }
+        $categories = Category::all();
+        return view('students.my-courses', compact('courses', 'categories'));
     }
 
     public function course(Request $request)
     {
+        $search = $request->get('search');
         $category = $request->get('category');
         if ($category) {
-            $courses = Course::where('category_id', $category)->get();
+            $courses = Course::where('category_id', $category)->paginate(6)->withQueryString();
         } else {
-            $courses = Course::all();
+            $courses = Course::paginate(6)->withQueryString();
+        }
+        if ($search) {
+            $courses = Course::where('title', 'like', '%' . $search . '%')->paginate(6)->withQueryString();
         }
         $categories = Category::all();
         return view('students.course', compact('courses', 'categories'));
@@ -36,6 +59,14 @@ class StudentController extends Controller
         $course->save();
         $categories = Category::all();
         return view('students.course-detail', compact('course', 'categories'));
+    }
+
+    public function courseLessons($id)
+    {
+        $booking = Booking::find($id);
+        $status = $booking->status;
+        $lessons = Lesson::where('course_id', $booking->course_id)->get();
+        return view('students.course-lessons', compact('lessons', 'status'));
     }
 
     public function courseStart($id, $teacher)
@@ -55,26 +86,30 @@ class StudentController extends Controller
         return redirect()->route('student.course');
     }
 
-    public function students()
+    public function students(Request $request)
     {
-        $teacher = auth()->user()->id;
-        $courses = Course::where('user_id', $teacher)->get();
-        $students = [];
-        foreach ($courses as $course) {
-            $bookings = Booking::where('course_id', $course->id)->get();
-            foreach ($bookings as $booking) {
-                $student = User::where('id', $booking->student_id)->first();
-                array_push($students, ['student'=>$student, 'course' => $course]);
-            }
-        }
+        $course_id = $request->get('id');
+        $students = Booking::with('course','teacher', 'student')->where('course_id', $course_id)->get();
         return view('teachers.students', compact('students'));
     }
 
-    public function studentStatus()
+    public function studentStatus($id)
     {
-        $student = auth()->user()->id;
-        $bookings = Booking::where('student_id', $student)->get();
-        $categories = Category::all();
-        return view('students.status', compact('bookings', 'categories'));
+        $booking = Booking::find($id);
+        if ($booking->status == 1) {
+            Alert::error('Error', __("messages.student_status_error"));
+        }
+        $booking->status = 1;
+        $booking->save();
+        Alert::success('Success', __("messages.student_status"));
+        return redirect()->back();
+    }
+
+    public function studentDelete($id)
+    {
+        $booking = Booking::find($id);
+        $booking->delete();
+        Alert::success('Success', __("messages.student_delete"));
+        return redirect()->back();
     }
 }

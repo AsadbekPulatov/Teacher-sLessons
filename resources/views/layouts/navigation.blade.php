@@ -12,26 +12,17 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
                     @if(Auth::user()->hasRole('teacher'))
                         <x-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">
                             {{ __('messages.courses') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('students')" :active="request()->routeIs('students')">
-                            {{ __('messages.students') }}
-                            <?php
-                                $count = \App\Models\Booking::where('teacher_id', auth()->user()->id)->where('status', '0')->count();
-                                if ($count > 0) {
-                                    echo "$count";
-                                }
-                            ?>
                         </x-nav-link>
                     @endif
                     @if(Auth::user()->hasRole('student'))
                         <x-nav-link :href="route('student.course')" :active="request()->routeIs('student.course')">
                             {{ __('messages.courses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('my-courses')" :active="request()->routeIs('my-courses')">
+                            {{ __('messages.my_courses') }}
                         </x-nav-link>
                     @endif
                 </div>

@@ -29,8 +29,8 @@
                             @enderror
                         </div>
                         <div class="mt-4">
-                            <label for="category" class="form-label">{{ __("messages.category") }}:</label>
                             <select name="category" id="category" class="form-control form-select">
+                                <option value="">{{ __("messages.course_type") }}</option>
                                 @foreach($categories as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>
                                 @endforeach

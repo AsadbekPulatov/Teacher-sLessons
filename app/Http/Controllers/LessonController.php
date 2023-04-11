@@ -12,8 +12,9 @@ class LessonController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:teacher');
+        $this->middleware('role:teacher')->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +41,7 @@ class LessonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,9 +49,9 @@ class LessonController extends Controller
         $uploadFile = new UploadFile();
         request()->validate([
             'theme' => 'required',
-            'file' => 'mimes:pdf,doc,docx,ppt,pptx,xls,xlsx',
+            'file' => 'mimes:pdf',
             'video' => 'mimes:mp4,avi,mov',
-            'task' => 'mimes:pdf,doc,docx',
+            'task' => 'mimes:pdf',
         ]);
         $file = $request->file('file');
         $video = $request->file('video');
@@ -86,18 +87,18 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Lesson  $lesson
+     * @param \App\Models\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
     public function show(Lesson $lesson)
     {
-        //
+        return view('teachers.lessons.show', compact('lesson'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Lesson  $lesson
+     * @param \App\Models\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
     public function edit(Lesson $lesson)
@@ -108,8 +109,8 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Lesson  $lesson
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Lesson $lesson)
@@ -126,7 +127,7 @@ class LessonController extends Controller
         $task = $request->file('task');
         if ($file) {
             $file_name = $uploadFile->uploadFile($file, 'uploads/files');
-            if ($lesson->file){
+            if ($lesson->file) {
                 $file_path = public_path('uploads/files/' . $lesson->file);
                 $uploadFile->deleteFile($file_path);
             }
@@ -134,7 +135,7 @@ class LessonController extends Controller
         }
         if ($video) {
             $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
-            if ($lesson->video){
+            if ($lesson->video) {
                 $video_path = public_path('uploads/videos/' . $lesson->video);
                 $uploadFile->deleteFile($video_path);
             }
@@ -142,7 +143,7 @@ class LessonController extends Controller
         }
         if ($task) {
             $task_name = $uploadFile->uploadFile($task, 'uploads/tasks');
-            if ($lesson->task){
+            if ($lesson->task) {
                 $task_path = public_path('uploads/tasks/' . $lesson->task);
                 $uploadFile->deleteFile($task_path);
             }
@@ -157,7 +158,7 @@ class LessonController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Lesson  $lesson
+     * @param \App\Models\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lesson $lesson)
