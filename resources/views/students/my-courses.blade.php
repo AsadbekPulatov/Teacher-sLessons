@@ -25,7 +25,12 @@
                                         <p>{{ $course->course->title }}</p>
                                         <p>{{ number_format($course->course->price, 0, ' ', ' ') }} {{ __("messages.uzs") }}</p>
                                         <p class="float-end">
-                                            <i class="bi bi-eye"></i> {{ $course->course->views }}
+                                            @if($course->status == 1)
+                                                <span class="badge bg-success">{{ __("messages.active") }}</span>
+                                            @else
+                                                <span class="badge bg-warning">{{ __("messages.inactive") }}</span>
+                                            @endif
+                                            <i class="bi bi-eye ml-1"></i> {{ $course->course->views }}
                                             <i class="bi bi-heart ml-1"></i> 5
                                         </p>
                                     </a>
