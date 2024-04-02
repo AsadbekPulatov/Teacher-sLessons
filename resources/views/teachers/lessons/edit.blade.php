@@ -24,11 +24,11 @@
                         </div>
                         <div class="mt-4">
                             <label for="video" class="block text-gray-700 text-sm font-bold mb-2">{{ __("messages.video") }}:</label>
-                            <input type="file" name="video" id="video" accept=".avi,.mp4" class="form-control">
+                            <input type="url" name="video" id="video" class="form-control" value="{{ $lesson->video }}">
                             @error('video')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
-                            <a href="{{ asset('uploads/videos/' . $lesson->video) }}" target="_blank">{{ $lesson->video }}</a>
+                            <a href="{{ $lesson->video }}" target="_blank">{{ $lesson->video }}</a>
                         </div>
                         <div class="mt-4">
                             <label for="task" class="block text-gray-700 text-sm font-bold mb-2">{{ __("messages.task") }}:</label>

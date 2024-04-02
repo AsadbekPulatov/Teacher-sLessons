@@ -22,7 +22,7 @@
                         </div>
                         <div class="mt-4">
                             <label for="video" class="block text-gray-700 text-sm font-bold mb-2">{{ __("messages.video") }}:</label>
-                            <input type="file" name="video" id="video" accept=".avi,.mp4" class="form-control">
+                            <input type="url" name="video" id="video" class="form-control">
                             @error('video')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror

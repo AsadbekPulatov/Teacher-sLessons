@@ -50,13 +50,12 @@ class LessonController extends Controller
         request()->validate([
             'theme' => 'required',
             'file' => 'mimes:pdf',
-            'video' => 'mimes:mp4,avi,mov',
+            'video' => 'url',
             'task' => 'mimes:pdf',
         ]);
         $file = $request->file('file');
-        $video = $request->file('video');
+        $video = $request->video;
         $task = $request->file('task');
-
         if (!$file) {
             $file_name = "";
         } else {
@@ -65,7 +64,13 @@ class LessonController extends Controller
         if (!$video) {
             $video_name = "";
         } else {
-            $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
+            $url = $video;
+            $videoId = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
+            $embeddedUrl = "https://www.youtube.com/embed/{$videoId}";
+            if ($query = parse_url($url, PHP_URL_QUERY)) {
+                $embeddedUrl .= '?' . $query;
+            }
+            $video_name = $embeddedUrl;
         }
         if (!$task) {
             $task_name = "";
@@ -119,11 +124,11 @@ class LessonController extends Controller
         request()->validate([
             'theme' => 'required',
             'file' => 'mimes:pdf,doc,docx,ppt,pptx,xls,xlsx',
-            'video' => 'mimes:mp4,avi,mov',
+            'video' => 'url',
             'task' => 'mimes:pdf,doc,docx',
         ]);
         $file = $request->file('file');
-        $video = $request->file('video');
+        $video = $request->video;
         $task = $request->file('task');
         if ($file) {
             $file_name = $uploadFile->uploadFile($file, 'uploads/files');
@@ -134,11 +139,13 @@ class LessonController extends Controller
             $lesson->file = $file_name;
         }
         if ($video) {
-            $video_name = $uploadFile->uploadFile($video, 'uploads/videos');
-            if ($lesson->video) {
-                $video_path = public_path('uploads/videos/' . $lesson->video);
-                $uploadFile->deleteFile($video_path);
+            $url = $video;
+            $videoId = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
+            $embeddedUrl = "https://www.youtube.com/embed/{$videoId}";
+            if ($query = parse_url($url, PHP_URL_QUERY)) {
+                $embeddedUrl .= '?' . $query;
             }
+            $video_name = $embeddedUrl;
             $lesson->video = $video_name;
         }
         if ($task) {

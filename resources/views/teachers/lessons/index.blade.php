@@ -50,7 +50,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ asset('uploads/videos/' . $lesson->video) }}" target="_blank">
+                                    <a href="{{ $lesson->video }}" target="_blank">
                                         {{ $lesson->video }}
                                     </a>
                                 </td>

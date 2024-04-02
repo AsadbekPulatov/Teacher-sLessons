@@ -15,7 +15,7 @@
                     @if($lesson->video)
                         <div class="mt-5">
                             <p>{{ __("messages.lesson_video") }}</p>
-                            <video src="{{ asset('uploads/videos/'.$lesson->video) }}" controls></video>
+                            <iframe src="{{ $lesson->video }}" frameborder="0" width="70%" height="500px"></iframe>
                         </div>
                     @endif
                     @if($lesson->task)
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-
+    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('student'))
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-
+    @endif
 
 </x-app-layout>
 @include('sweetalert::alert')
