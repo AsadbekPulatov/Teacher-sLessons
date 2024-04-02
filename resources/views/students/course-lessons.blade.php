@@ -12,6 +12,7 @@
                             <th class="col-10">{{ __("messages.theme") }}</th>
                             <th class="col-1"></th>
                         </tr>
+
                         @foreach($lessons as $lesson)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
@@ -35,6 +36,11 @@
                             </tr>
                         @endforeach
                     </table>
+                    <form action="{{route('get-sertificate',$student_id)}}" method="post">
+                        @csrf
+                        <input type="hidden" name="course_id" value="{{$course_id}}">
+                        <button type="submit" class="btn btn-secondary">Sertifikat olish</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+
                     <p class="fs-4 font-bold">{{ $lesson->theme }}</p>
                     @if($lesson->file)
                         <div class="mt-5">
@@ -28,4 +29,24 @@
             </div>
         </div>
     </div>
+
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="{{route('tasks.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" name="lesson_id" value="{{$lesson->id}}">
+                        <input type="file" name="task" accept=".pdf" class="form-control" required>
+                        <button class="btn btn-info mt-1 justify-content-end">Vazifa yuklash</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </x-app-layout>
+@include('sweetalert::alert')

@@ -36,13 +36,25 @@
                                                 <i class="bi bi-plus"></i>
                                             </a>
                                         @endif
-                                        <button onclick="show({{ $item }})" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        <button onclick="show({{ $item }})" type="button" class="btn btn-primary"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                         <a href="{{ route('student-delete', $item->id) }}" class="btn btn-danger">
                                             <i class="bi bi-trash"></i>
                                         </a>
+
+
+                                        <form action="{{ route('check-task', $item['course']->id)}}" method="get">
+                                            @csrf
+                                            <input class="bi bi-trash" type="hidden" name="student_id" value="{{$item['student']->id}}">
+                                            <button type="submit" class="btn btn-info">
+                                                <i class="bi bi-book"></i>
+                                            </button>
+                                        </form>
+
+
                                     </div>
                                 </td>
                             </tr>

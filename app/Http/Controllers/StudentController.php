@@ -6,8 +6,10 @@ use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
@@ -64,9 +66,11 @@ class StudentController extends Controller
     public function courseLessons($id)
     {
         $booking = Booking::find($id);
+        $student_id = auth()->user()->id;
+        $course_id=$booking->course_id;
         $status = $booking->status;
         $lessons = Lesson::where('course_id', $booking->course_id)->get();
-        return view('students.course-lessons', compact('lessons', 'status'));
+        return view('students.course-lessons', compact('lessons', 'status','student_id','course_id'));
     }
 
     public function courseStart($id, $teacher)
@@ -89,7 +93,7 @@ class StudentController extends Controller
     public function students(Request $request)
     {
         $course_id = $request->get('id');
-        $students = Booking::with('course','teacher', 'student')->where('course_id', $course_id)->get();
+        $students = Booking::with('course', 'teacher', 'student')->where('course_id', $course_id)->get();
         return view('teachers.students', compact('students'));
     }
 
@@ -112,4 +116,28 @@ class StudentController extends Controller
         Alert::success('Success', __("messages.student_delete"));
         return redirect()->back();
     }
+
+    public function checkTask(Request $request, $course_id)
+    {
+
+//        DB::enableQueryLog();
+        $student = User::where('id', $request->student_id)->first()->name;
+
+
+
+        $tasks = Task::whereHas('lesson', function ($query) use ($course_id) {
+            $query->where('course_id', $course_id);
+        })->where('student_id', $request->student_id)->get();
+
+
+//        dd(DB::getQueryLog());
+//        DB::disableQueryLog();
+
+        return view('students.check-task', [
+            'tasks'=>$tasks,
+            'course_id'=>$course_id,
+            'student'=>$student,
+        ]);
+    }
+
 }
