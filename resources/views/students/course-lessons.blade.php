@@ -34,9 +34,12 @@
                                     @endif
                                 </td>
                             </tr>
+                            @php
+                                $course_id = $lesson->course_id;
+                            @endphp
                         @endforeach
                     </table>
-                    <form action="{{route('get-sertificate',$student_id)}}" method="post">
+                    <form action="{{route('get-sertificate',['id' => $course_id    ])}}" method="post">
                         @csrf
                         <input type="hidden" name="course_id" value="{{$course_id}}">
                         <button type="submit" class="btn btn-secondary">Sertifikat olish</button>

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Task;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskController extends Controller
@@ -127,14 +130,25 @@ class TaskController extends Controller
 
     }
 
-public function get_sertificate()
+    public function get_sertificate(Request $request)
     {
-        $tasks = Task::where('student_id', auth()->user()->id)->where('baho', '>=', 60)->get();
-        dd($tasks);
-        if (count($tasks) < 3) {
+        $course = $request['id'];
+        $lessons = Lesson::where('course_id', $course)->get();
+        $lesson_count = count($lessons);
+        $lesson_ids = [];
+        foreach ($lessons as $lesson)
+            array_push($lesson_ids, $lesson->id);
+
+        $tasks = Task::where('student_id', auth()->user()->id)->whereIn('lesson_id', $lesson_ids)->where('baho', '>=', 60)->get();
+        $tasks_count = count($tasks);
+        if ($lesson_count != $tasks_count) {
             Alert::error('Error', __("messages.sertificate_error"));
             return redirect()->back();
         }
-        return view('students.sertificate', compact('tasks'));
+        $user = Auth::user();
+        $course = Course::find($course);
+        $pdf = Pdf::loadView('students.certificate', compact('user', 'course'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
     }
 }
