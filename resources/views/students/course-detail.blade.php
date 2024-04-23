@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12 col-md-6">
                             <div class="row">
                                 <div class="col-12">
                                     <h1>{{ $course->title }}</h1>
@@ -17,11 +17,10 @@
                                 </div>
                                 <div class="col-12">
                                     <p><i class="bi bi-eye"></i> {{ $course->views - 1 }}</p>
-                                    <a href="{{ route('student.course-start', [$course->id, $course->user->id]) }}" class="btn btn-primary">{{ __("messages.start") }}</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-6">
                             <div class="row">
                                 <div class="col-12">
                                     <h1>{{ __("messages.teacher") }}</h1>
@@ -43,6 +42,9 @@
                                 </div>
                             </div>
                         </div>
+			<div class="col-12">
+                                    <a href="{{ route('student.course-start', [$course->id, $course->user->id]) }}" class="btn btn-primary">{{ __("messages.start") }}</a>
+                                </div>
                     </div>
                 </div>
             </div>

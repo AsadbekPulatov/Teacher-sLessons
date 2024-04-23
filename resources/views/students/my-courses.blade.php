@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="row">
-                        <div class="col-2" style="background-color: #f3f1f1">
+                        <div class="col-12 col-sm-4 col-md-2" style="background-color: #f3f1f1">
                             <a href="{{ route('my-courses')}}"
                                class="m-3 row text-dark fw-bold">{{ __("messages.all") }}</a>
                             @foreach($categories as $category)
@@ -12,16 +12,16 @@
                                    class="m-3 row text-dark fw-bold">{{ $category->name }}</a>
                             @endforeach
                         </div>
-                        <div class="col-10 align-content-center">
+                        <div class="col-12 col-sm-8 col-md-10 align-content-center">
                             <form action="">
                                 <input type="search" name="search" class="form-control"
                                        placeholder="{{ __("messages.search") }}">
                             </form>
-                            <div class="row row-cols-3">
+                            <div class="row row-cols-4">
                                 @foreach($courses as $course)
                                     <a href="{{ route('student.course-lessons', $course->id) }}"
-                                       class="rounded p-3 text-white fw-bold m-3"
-                                       style="background-color: #6292d9; width: 45%">
+                                       class="col-10 col-sm-6 col-md-4 rounded p-3 text-white fw-bold m-3"
+                                       style="background-color: #6292d9;">
                                         <p>{{ $course->course->title }}</p>
                                         <p>{{ number_format($course->course->price, 0, ' ', ' ') }} {{ __("messages.uzs") }}</p>
                                         <p class="float-end">
