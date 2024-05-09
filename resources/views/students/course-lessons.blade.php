@@ -39,11 +39,16 @@
                             @endphp
                         @endforeach
                     </table>
-                    <form action="{{route('get-sertificate',['id' => $course_id    ])}}" method="post">
-                        @csrf
-                        <input type="hidden" name="course_id" value="{{$course_id}}">
-                        <button type="submit" class="btn btn-secondary">Sertifikat olish</button>
-                    </form>
+                    <div class="d-flex">
+                        <a href="{{ route('test.run', $course_id) }}" class="btn btn-primary" style="margin-right: 10px;">
+                            Testni ishlash
+                        </a>
+                        <form action="{{route('get-sertificate',['id' => $course_id])}}" method="post">
+                            @csrf
+                            <input type="hidden" name="course_id" value="{{$course_id}}">
+                            <button type="submit" class="btn btn-secondary">Sertifikat olish</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Question;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -72,5 +75,37 @@ class TestController extends Controller
         $test->delete();
         Alert::success('Success', __('messages.test_deleted'));
         return redirect()->route('tests.index', ['id' => $id]);
+    }
+
+    public function run($id){
+        $course = $id;
+        $lessons = Lesson::where('course_id', $course)->get();
+        $lesson_count = count($lessons);
+        $lesson_ids = [];
+        foreach ($lessons as $lesson)
+            array_push($lesson_ids, $lesson->id);
+
+        $tasks = Task::where('student_id', auth()->user()->id)->whereIn('lesson_id', $lesson_ids)->where('baho', '>=', 60)->get();
+        $tasks_count = count($tasks);
+        if ($lesson_count != $tasks_count) {
+            Alert::error('Error', __("messages.sertificate_error"));
+            return redirect()->back();
+        }
+
+        $questions = Question::where('course_id', $id)->get();
+        $new_questions = [];
+        foreach ($questions as $question){
+            $new_questions[$question->id]['question'] = $question->question;
+            foreach ($question->answers as $answer){
+                $new_questions[$question->id]['answers'][] = [
+                    'text' => $answer->answer,
+                    'correct' => $answer->is_correct == 1 ? true : false,
+                ];
+            }
+        }
+        $new_questions = array_values($new_questions);
+        $questions = json_encode($new_questions);
+        $course = Course::findorfail($course);
+        return view('students.test', compact('questions', 'course'));
     }
 }

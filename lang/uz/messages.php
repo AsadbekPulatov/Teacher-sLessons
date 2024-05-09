@@ -105,6 +105,6 @@ return [
     "student_status" => "O'quvchi kursga qo'shildi",
     "student_status_error" => "O'quvchi allaqachon ushbu kursga qo'shilgan",
     "student_delete" => "O'quvchi kursdan o'chirildi",
-    "sertificate_error" => "Kurs hali tugatilmadi.",
+    "sertificate_error" => "Kurs hali tugatilmadi. Sizda 60% dan past baholangan darslar mavjud.",
     'logged_in' => "Тизимга кирилди",
 ];

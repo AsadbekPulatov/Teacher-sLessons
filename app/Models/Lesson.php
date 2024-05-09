@@ -12,4 +12,8 @@ class Lesson extends Model
     public function course(){
         return $this->belongsTo(Course::class);
     }
+
+    public function tasks(){
+        return $this->hasOne(Task::class, 'lesson_id', 'id');
+    }
 }
