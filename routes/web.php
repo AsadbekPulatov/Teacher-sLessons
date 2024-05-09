@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
     Route::resource('lessons', LessonController::class);
     Route::resource('tasks', \App\Http\Controllers\TaskController::class);
+    Route::resource('categories', CategoryController::class)->middleware('auth');
+
     Route::get('students', [\App\Http\Controllers\StudentController::class, 'students'])->name('students');
     Route::get('student-status/{id}', [\App\Http\Controllers\StudentController::class, 'studentStatus'])->name('student-status');
     Route::get('student-delete/{id}', [\App\Http\Controllers\StudentController::class, 'studentDelete'])->name('student-delete');
@@ -48,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('task_download/{task_id}',[\App\Http\Controllers\TaskController::class, 'taskDownload'])->name('task_download');
     Route::post('check-save',[\App\Http\Controllers\TaskController::class,'check_save'])->name('check-save');
     Route::post('get-sertificate',[\App\Http\Controllers\TaskController::class,'get_sertificate'])->name('get-sertificate');
+
+    Route::resource('tests', TestController::class);
 });
 
 require __DIR__.'/auth.php';

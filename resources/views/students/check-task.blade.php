@@ -8,10 +8,10 @@
                     </h2>
                     <table class="table table-bordered table-hover">
                         <tr>
-                            <td>Task</td>
-                            <td class="">Lesson</td>
+                            <td>#</td>
+                            <td class="">{{ __("messages.lessons") }}</td>
                             <td>Baho</td>
-                            <td>Action</td>
+                            <td>{{ __("messages.action") }}</td>
                         </tr>
                         @php $summ=0; $i=0 @endphp
                         @foreach($tasks as $item)

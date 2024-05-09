@@ -1,9 +1,13 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Message;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\SaveCategoryRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -14,7 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::all();
+        return view('teachers.categories.index',[
+            'categories' => $category,
+        ]);
     }
 
     /**
@@ -24,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('teachers.categories.create');
     }
 
     /**
@@ -33,9 +40,11 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveCategoryRequest $request, Category $category)
     {
-        //
+        $category->create($request->validated());
+        Alert::success('Success', __("messages.category_created"));
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -46,7 +55,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        abort('404');
+//        dd($category);
     }
 
     /**
@@ -57,7 +67,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('teachers.categories.edit',[
+            'category' => $category
+        ]);
     }
 
     /**
@@ -67,9 +79,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(SaveCategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        Alert::success('Success', __("messages.category_updated"));
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -80,6 +94,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if (count($category->courses) == 0){
+            $category->delete();
+            Alert::success('Success', __("messages.category_deleted"));
+        } else
+            Alert::error('Error', __("messages.category_not_deleted"));
+        return redirect()->route('categories.index');
     }
 }

@@ -119,19 +119,11 @@ class StudentController extends Controller
 
     public function checkTask(Request $request, $course_id)
     {
-
-//        DB::enableQueryLog();
         $student = User::where('id', $request->student_id)->first()->name;
-
-
 
         $tasks = Task::whereHas('lesson', function ($query) use ($course_id) {
             $query->where('course_id', $course_id);
         })->where('student_id', $request->student_id)->get();
-
-
-//        dd(DB::getQueryLog());
-//        DB::disableQueryLog();
 
         return view('students.check-task', [
             'tasks'=>$tasks,

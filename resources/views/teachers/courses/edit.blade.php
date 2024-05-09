@@ -17,9 +17,7 @@
                         </div>
                         <div class="mt-4">
                             <label for="description" class="form-label">{{ __("messages.description") }}:</label>
-                            <textarea rows="5" name="description" id="description" class="form-control" placeholder="{{ __("messages.description") }}">
-                                {{ $course->description }}
-                            </textarea>
+                            <textarea rows="5" name="description" id="description" class="form-control" placeholder="{{ __("messages.description") }}">{{ $course->description }}</textarea>
                             @error('description')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror

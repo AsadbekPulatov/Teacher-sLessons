@@ -26,6 +26,9 @@
                                                 <a href="{{ route('lessons.index', ['id' => $item->id]) }}" class="card-link text-uppercase">
                                                     {{ __("messages.lessons") }}
                                                 </a>
+                                                <a href="{{ route('tests.index', ['id' => $item->id]) }}" class="card-link text-uppercase">
+                                                    {{ __("messages.tests") }}
+                                                </a>
                                                 <div class="float-end">
                                                     <i class="bi bi-eye"></i> {{ $item->views }}
                                                     <i class="bi bi-heart ml-2"></i> 5
@@ -37,45 +40,6 @@
                             </div>
                         @endforeach
                     </div>
-
-{{--                    <table class="table table-bordered table-hover">--}}
-{{--                        <tr>--}}
-{{--                            <th class="col-1">#</th>--}}
-{{--                            <th class="col-2">{{ __("messages.title") }}</th>--}}
-{{--                            <th class="col-4">{{ __("messages.description") }}</th>--}}
-{{--                            <th class="col-2">{{ __("messages.price") }}</th>--}}
-{{--                            <th class="col-2">{{ __("messages.category") }}</th>--}}
-{{--                            <th class="col-1">{{ __("messages.action") }}</th>--}}
-{{--                        </tr>--}}
-{{--                        @foreach($courses as $course)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $loop->index + 1 }}</td>--}}
-{{--                                <td>{{ $course->title }}</td>--}}
-{{--                                <td>{{ $course->description }}</td>--}}
-{{--                                <td>{{ number_format($course->price, 0, ' ', ' ') }}</td>--}}
-{{--                                <td>{{ $course->category->name }}</td>--}}
-{{--                                <td>--}}
-{{--                                    <div class="d-flex align-items-center justify-content-around">--}}
-{{--                                        <a href="{{ route('lessons.index', ['id' => $course->id]) }}"--}}
-{{--                                           class="btn btn-info">--}}
-{{--                                            <i class="bi bi-eye"></i>--}}
-{{--                                        </a>--}}
-{{--                                        <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-warning">--}}
-{{--                                            <i class="bi bi-pencil"></i>--}}
-{{--                                        </a>--}}
-{{--                                        <form action="{{ route('courses.destroy', $course) }}"--}}
-{{--                                              method="post" id="course-form">--}}
-{{--                                            @csrf--}}
-{{--                                            @method('delete')--}}
-{{--                                            <button type="submit" class="btn btn-danger">--}}
-{{--                                                <i class="bi bi-trash"></i>--}}
-{{--                                            </button>--}}
-{{--                                        </form>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
-{{--                    </table>--}}
                 </div>
             </div>
         </div>

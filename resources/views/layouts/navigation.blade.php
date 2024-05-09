@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <h2 class="text-dark">Goal Communication</h2>
-{{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>--}}
+                        {{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>--}}
                     </a>
                 </div>
 
@@ -16,6 +16,9 @@
                     @if(Auth::user()->hasRole('teacher'))
                         <x-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">
                             {{ __('messages.courses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                            {{ __('messages.categories') }}
                         </x-nav-link>
                     @endif
                     @if(Auth::user()->hasRole('student'))
@@ -89,19 +92,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-@if(Auth::user()->hasRole('teacher'))
-                        <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">
-                            {{ __('messages.courses') }}
-                        </x-responsive-nav-link>
-                    @endif
-                    @if(Auth::user()->hasRole('student'))
-                        <x-responsive-nav-link :href="route('student.course')" :active="request()->routeIs('student.course')">
-                            {{ __('messages.courses') }}
-                        </x-responsive-nav-link>
-                        <x-responsive-nav-link :href="route('my-courses')" :active="request()->routeIs('my-courses')">
-                            {{ __('messages.my_courses') }}
-                        </x-responsive-nav-link>
-                    @endif
+            @if(Auth::user()->hasRole('teacher'))
+                <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">
+                    {{ __('messages.courses') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                    {{ __('messages.categories') }}
+                </x-responsive-nav-link>
+            @endif
+            @if(Auth::user()->hasRole('student'))
+                <x-responsive-nav-link :href="route('student.course')" :active="request()->routeIs('student.course')">
+                    {{ __('messages.courses') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('my-courses')" :active="request()->routeIs('my-courses')">
+                    {{ __('messages.my_courses') }}
+                </x-responsive-nav-link>
+            @endif
 
         </div>
 
