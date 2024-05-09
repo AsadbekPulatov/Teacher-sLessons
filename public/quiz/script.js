@@ -61,9 +61,12 @@ function selectAnswer(e) {
 function showScore() {
     resetState();
     var result = score / questions.length * 100;
+    document.getElementById('score').value = result;
     questionElement.innerHTML = `${result} %`;
     nextButton.innerHTML = "Qayta ishlash";
     nextButton.style.display = "block";
+    setTimeout(5000);
+    document.getElementById('resultForm').submit();
 }
 
 function handleNextButton() {

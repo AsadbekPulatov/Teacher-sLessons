@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Score;
 use App\Models\Task;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -133,6 +134,10 @@ class TaskController extends Controller
     public function get_sertificate(Request $request)
     {
         $course = $request['id'];
+        $scores = Score::orderby('score', 'DESC')
+            ->where('course_id', $course)
+            ->where('user_id', auth()->id())
+            ->first();
         $lessons = Lesson::where('course_id', $course)->get();
         $lesson_count = count($lessons);
         $lesson_ids = [];
@@ -141,7 +146,7 @@ class TaskController extends Controller
 
         $tasks = Task::where('student_id', auth()->user()->id)->whereIn('lesson_id', $lesson_ids)->where('baho', '>=', 60)->get();
         $tasks_count = count($tasks);
-        if ($lesson_count != $tasks_count) {
+        if ($lesson_count != $tasks_count || $scores->score < 60) {
             Alert::error('Error', __("messages.sertificate_error"));
             return redirect()->back();
         }

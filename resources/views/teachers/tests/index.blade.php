@@ -11,7 +11,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
-                        <div class="d-flex justify-content-end float-end" style="width: 25%;">
+                        <div class="d-flex justify-content-around float-end" style="width: 50%;">
+                            <form action="{{ route('test.import') }}" method="post" enctype="multipart/form-data"
+                                  class="d-flex align-items-center">
+                                @csrf
+                                <input type="hidden" name="course_id" value="{{ $id }}">
+                                <input type="file" name="file" accept=".txt" class="form-control" required>
+                                <button type="submit" class="btn btn-info">Import</button>
+                            </form>
                             <a href="{{ route('tests.create', ['id' => $id]) }}"
                                class="btn btn-success">{{ __("messages.add_test") }}</a>
                         </div>

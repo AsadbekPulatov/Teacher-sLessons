@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Score;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -125,10 +126,14 @@ class StudentController extends Controller
             $query->where('course_id', $course_id);
         })->where('student_id', $request->student_id)->get();
 
+
+        $scores = Score::orderby('id', 'DESC')->where('user_id', $request->student_id)->get();
+
         return view('students.check-task', [
             'tasks'=>$tasks,
             'course_id'=>$course_id,
             'student'=>$student,
+            'scores' => $scores,
         ]);
     }
 

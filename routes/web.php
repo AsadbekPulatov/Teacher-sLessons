@@ -57,6 +57,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('tests', TestController::class);
     Route::get('test/run/{id}', [TestController::class, 'run'])->name('test.run');
+    Route::post('test/import', [TestController::class, 'import'])->name('test.import');
+
+    Route::post('test/result', [TestController::class, 'result'])->name('test.result');
 });
 
 require __DIR__.'/auth.php';
