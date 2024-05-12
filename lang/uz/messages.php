@@ -10,6 +10,9 @@ return [
     'edit' => "Tahrirlash",
     'close' => "Bekor qilish",
     "delete" => "O'chirish",
+    "check" => "Tasdiqlandi",
+    "show" => "Ko'rish",
+    "add_student" => "Kursga qo'shish",
 
     //   headers and menus
     "action" => "Amallar",
@@ -52,6 +55,7 @@ return [
     "tests" => "Testlar",
     "add_test" => "Test qo'shish",
     "edit_test" => "Testni tahrirlash",
+    "test_result" => "Test natijalari",
     "question" => "Savol",
     "answers" => "Javoblar",
 

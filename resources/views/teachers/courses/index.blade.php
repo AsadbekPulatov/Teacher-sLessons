@@ -31,7 +31,6 @@
                                                 </a>
                                                 <div class="float-end">
                                                     <i class="bi bi-eye"></i> {{ $item->views }}
-                                                    <i class="bi bi-heart ml-2"></i> 5
                                                 </div>
                                             </div>
                                         </div>

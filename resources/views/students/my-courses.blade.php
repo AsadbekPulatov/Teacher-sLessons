@@ -31,7 +31,6 @@
                                                 <span class="badge bg-warning">{{ __("messages.inactive") }}</span>
                                             @endif
                                             <i class="bi bi-eye ml-1"></i> {{ $course->course->views }}
-                                            <i class="bi bi-heart ml-1"></i> 5
                                         </p>
                                     </a>
                                 @endforeach

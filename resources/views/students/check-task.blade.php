@@ -44,26 +44,6 @@
                             <td></td>
                         </tr>
                     </table>
-
-                    <h2>
-                        {{ __("messages.tests") }}
-                    </h2>
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <td>#</td>
-                            <td>O'quvchi</td>
-                            <td>Ishlangan vaqti</td>
-                            <td>Baho</td>
-                        </tr>
-                        @foreach($scores as $item)
-                            <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$item->user->surname. " ". $item->user->name}}</td>
-                                <td>{{$item->created_at}}</td>
-                                <td>{{$item->score}}</td>
-                            </tr>
-                        @endforeach
-                    </table>
                 </div>
             </div>
         </div>

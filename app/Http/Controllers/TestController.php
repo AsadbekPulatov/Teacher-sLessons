@@ -8,6 +8,7 @@ use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\Score;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -179,5 +180,13 @@ class TestController extends Controller
         $score->save();
 
         return redirect()->route('my-courses');
+    }
+
+    public function show_result(Request $request, $course_id)
+    {
+        $scores = Score::orderby('id', 'DESC')->where('user_id', $request->student_id)->get();
+        return view('teachers.tests.show', [
+            'scores' => $scores,
+        ]);
     }
 }

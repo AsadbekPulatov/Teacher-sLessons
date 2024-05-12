@@ -120,20 +120,18 @@ class StudentController extends Controller
 
     public function checkTask(Request $request, $course_id)
     {
-        $student = User::where('id', $request->student_id)->first()->name;
+        $student = User::where('id', $request->student_id)->first();
+
+        $student = $student->surname." ".$student->name;
 
         $tasks = Task::whereHas('lesson', function ($query) use ($course_id) {
             $query->where('course_id', $course_id);
         })->where('student_id', $request->student_id)->get();
 
-
-        $scores = Score::orderby('id', 'DESC')->where('user_id', $request->student_id)->get();
-
         return view('students.check-task', [
             'tasks'=>$tasks,
             'course_id'=>$course_id,
             'student'=>$student,
-            'scores' => $scores,
         ]);
     }
 

@@ -1,52 +1,29 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <p class="fs-4 font-bold">{{ $lesson->theme }}</p>
-                    @if($lesson->file)
-                        <div class="mt-5">
-                            <p>{{ __("messages.lesson_file") }}</p>
-                            <a href="{{ asset('uploads/files/'.$lesson->file) }}" download>{{ $lesson->file }}</a>
-{{--                            <iframe src="{{ asset('uploads/files/'.$lesson->file) }}" frameborder="0" width="100%" height="1000px"></iframe>--}}
-                        </div>
-                    @endif
-                    @if($lesson->video)
-                        <div class="mt-5">
-                            <p>{{ __("messages.lesson_video") }}</p>
-                            <iframe src="{{ $lesson->video }}" frameborder="0" width="70%" height="500px"></iframe>
-                        </div>
-                    @endif
-                    @if($lesson->task)
-                        <div class="mt-5">
-                            <p>{{ __("messages.lesson_task") }}</p>
-                            <a href="{{ asset('uploads/tasks/'.$lesson->task) }}" download>{{ $lesson->task }}</a>
-{{--                            <iframe src="{{ asset('uploads/tasks/'.$lesson->task) }}" frameborder="0" width="100%" height="1000px"></iframe>--}}
-                        </div>
-                    @endif
+                <div class="p-6 text-gray-900" style="position: relative">
+                    <h2>
+                        {{ __("messages.test_result") }}
+                    </h2>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <td>#</td>
+                            <td>O'quvchi</td>
+                            <td>Ishlangan vaqti</td>
+                            <td>Baho</td>
+                        </tr>
+                        @foreach($scores as $item)
+                            <tr>
+                                <td>{{$loop->index+1}}</td>
+                                <td>{{$item->user->surname. " ". $item->user->name}}</td>
+                                <td>{{$item->created_at}}</td>
+                                <td>{{$item->score}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('student'))
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <form action="{{route('tasks.store')}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('POST')
-                        <input type="hidden" name="lesson_id" value="{{$lesson->id}}">
-                        <input type="file" name="task" accept=".pdf" class="form-control" required>
-                        <button class="btn btn-info mt-1 justify-content-end">Vazifa yuklash</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-
 </x-app-layout>
-@include('sweetalert::alert')

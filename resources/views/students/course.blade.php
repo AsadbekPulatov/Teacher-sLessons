@@ -26,7 +26,6 @@
                                         <p>{{ number_format($course->price, 0, ' ', ' ') }} {{ __("messages.uzs") }}</p>
                                         <p class="float-end">
                                             <i class="bi bi-eye"></i> {{ $course->views }}
-                                            <i class="bi bi-heart ml-1"></i> 5
                                         </p>
                                     </a>
                                 @endforeach

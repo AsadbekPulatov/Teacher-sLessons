@@ -25,35 +25,48 @@
                                 <td>{{ $item['course']->title }}</td>
                                 <td>{{ $item['course']->price }}</td>
                                 <td>
-                                    <div class="d-flex align-items-center justify-content-around">
+                                    <div class="d-flex flex-column">
                                         @if($item->status == 1)
-                                            <a class="btn btn-success">
+                                            <a class="btn btn-success mb-1">
                                                 <i class="bi bi-check-circle"></i>
+                                                {{ __("messages.check") }}
                                             </a>
                                         @else
                                             <a href="{{ route('student-status', $item->id) }}"
-                                               class="btn btn-warning">
+                                               class="btn btn-warning mb-1">
                                                 <i class="bi bi-plus"></i>
+                                                {{ __("messages.add_student") }}
                                             </a>
                                         @endif
-                                        <button onclick="show({{ $item }})" type="button" class="btn btn-primary"
+                                        <button onclick="show({{ $item }})" type="button" class="btn btn-primary mb-1"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                             <i class="bi bi-eye"></i>
+                                            {{ __("messages.show") }}
                                         </button>
-                                        <a href="{{ route('student-delete', $item->id) }}" class="btn btn-danger">
+                                        <a href="{{ route('student-delete', $item->id) }}" class="btn btn-danger mb-1">
                                             <i class="bi bi-trash"></i>
+                                            {{ __("messages.delete") }}
                                         </a>
 
 
                                         <form action="{{ route('check-task', $item['course']->id)}}" method="get">
-                                            @csrf
-                                            <input class="bi bi-trash" type="hidden" name="student_id" value="{{$item['student']->id}}">
-                                            <button type="submit" class="btn btn-info">
+                                            <input class="bi bi-trash" type="hidden" name="student_id"
+                                                   value="{{$item['student']->id}}">
+                                            <button type="submit" class="btn btn-info w-100 mb-1">
                                                 <i class="bi bi-book"></i>
+                                                {{ __("messages.task") }}
                                             </button>
                                         </form>
 
+                                        <form action="{{ route('test.show_result', $item['course']->id)}}" method="get">
+                                            <input class="bi bi-trash" type="hidden" name="student_id"
+                                                   value="{{$item['student']->id}}">
+                                            <button type="submit" class="btn btn-secondary w-100 mb-1">
+                                                <i class="bi bi-bar-chart"></i>
+                                                {{ __("messages.tests") }}
+                                            </button>
+                                        </form>
 
                                     </div>
                                 </td>

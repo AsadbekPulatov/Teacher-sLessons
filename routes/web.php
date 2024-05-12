@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('test/import', [TestController::class, 'import'])->name('test.import');
 
     Route::post('test/result', [TestController::class, 'result'])->name('test.result');
+    Route::get('test/show/result/{course_id}',[TestController::class, 'show_result'])->name('test.show_result');
 });
 
 require __DIR__.'/auth.php';
