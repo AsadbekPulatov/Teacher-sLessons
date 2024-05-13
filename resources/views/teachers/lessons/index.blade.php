@@ -31,56 +31,57 @@
                         </div>
                         <h3 class="font-bold mb-3 mt-3">{{ __("messages.lessons") }}</h3>
                     </div>
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th class="col-1">#</th>
-                            <th class="col-3">{{ __("messages.theme") }}</th>
-                            <th class="col-2">{{ __("messages.file") }}</th>
-                            <th class="col-2">{{ __("messages.video") }}</th>
-                            <th class="col-2">{{ __("messages.task") }}</th>
-                            <th class="col-2">{{ __("messages.action") }}</th>
-                        </tr>
-                        @foreach($lessons as $lesson)
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $lesson->theme }}</td>
-                                <td>
-                                    <a href="{{ asset('uploads/files/' . $lesson->file) }}" target="_blank">
-                                        {{ $lesson->file }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ $lesson->video }}" target="_blank">
-                                        {{ $lesson->video }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ asset('uploads/tasks/' . $lesson->task) }}" target="_blank">
-                                        {{ $lesson->task }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center justify-content-around">
-                                        <a href="{{ route('lessons.show', $lesson->id) }}" class="btn btn-info">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="{{ route('lessons.edit', $lesson->id) }}" class="btn btn-warning">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('lessons.destroy', $lesson) }}"
-                                              method="post" id="course-form">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <th class="col-1">#</th>
+                                <th class="col-3">{{ __("messages.theme") }}</th>
+                                <th class="col-2">{{ __("messages.file") }}</th>
+                                <th class="col-2">{{ __("messages.video") }}</th>
+                                <th class="col-2">{{ __("messages.task") }}</th>
+                                <th class="col-2">{{ __("messages.action") }}</th>
                             </tr>
-                        @endforeach
-                    </table>
-
+                            @foreach($lessons as $lesson)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $lesson->theme }}</td>
+                                    <td>
+                                        <a href="{{ asset('uploads/files/' . $lesson->file) }}" target="_blank">
+                                            {{ $lesson->file }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ $lesson->video }}" target="_blank">
+                                            Videodars
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ asset('uploads/tasks/' . $lesson->task) }}" target="_blank">
+                                            {{ $lesson->task }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center justify-content-around">
+                                            <a href="{{ route('lessons.show', $lesson->id) }}" class="btn btn-info">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="{{ route('lessons.edit', $lesson->id) }}" class="btn btn-warning">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('lessons.destroy', $lesson) }}"
+                                                  method="post" id="course-form">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -184,7 +184,10 @@ class TestController extends Controller
 
     public function show_result(Request $request, $course_id)
     {
-        $scores = Score::orderby('id', 'DESC')->where('user_id', $request->student_id)->get();
+        $scores = Score::orderby('id', 'DESC')
+            ->where('course_id', $course_id)
+            ->where('user_id', $request->student_id)
+            ->get();
         return view('teachers.tests.show', [
             'scores' => $scores,
         ]);

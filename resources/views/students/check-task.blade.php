@@ -60,7 +60,7 @@
                             <input type="number" name="task_id" id="task_id" class="form-control mb-1" readonly>
                             <label for="baho">Baho:</label>
                             <input type="number" name="task_baho" class="form-control">
-                            <button type="submit" class="btn btn-primary mt-3">Save</button>
+                            <button type="submit" class="btn btn-primary mt-3">{{ __("messages.save") }}</button>
                         </form>
 
                     </div>
